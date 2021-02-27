@@ -27,7 +27,6 @@ $( function() {
 
   $( ":checkbox[name ='importTurtle']" ).change(function () {
     if ($(this).prop("checked")) {
-      console.log($("[name='Turtle']"))
       $("[name='Turtle'] > *").attr("disabled",false);
     } else{
       $("[name='Turtle'] > *").attr("disabled",true);
