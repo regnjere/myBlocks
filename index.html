@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CY105 Blocks</title>
+	<link rel="icon" type="image/png" href="icons/EECS Logo_small.png">
+	<!--<script src="https://unpkg.com/@popperjs/core@2"></script>-->
+  <!--Import jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	 crossorigin="anonymous">
+
+	<!--Import Blockly-->
+	<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+	<script src="scripts/storage.js"></script>
+	<script src="scripts/index.js"></script>
+	<script src="scripts/toolbox_label.js"></script>
+	<!--Import code for turtles-->
+	<script src="scripts/turtle_blocks.js"></script>
+	<script src="scripts/turtle.js"></script>
+	<!--Update where input and output display-->
+	<script src="scripts/inout.js"></script>
+	<link rel="stylesheet" href="styles/styles.css">
+	<link rel="stylesheet" href="styles/categoryStyles.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/c16180f477.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="start()">
+  
+	<div class="container-fluid">
+    <nav class="navbar-dark bg-dark">
+      <div class="container-fluid">
+        <img src="icons/logo_built_on.svg" alt = "Blockly Logo" id = "BlocklyLogo">
+        <button id="runButton" class="btn btn-primary btn-sm" onclick="Turtle.runButtonClick();" title="Makes the turtle do what the blocks say."><i class="fa fa-play"> Run</i></button>
+        <button id="resetButton" class="btn btn-primary btn-sm" onclick="Turtle.resetButtonClick();" style="display: none"><i class="fa fa-refresh"> Reset</i></button>
+        <button id="saveButton" class="btn btn-primary btn-sm" onclick="BlocklyStorage.backupBlocks(Blockly.mainWorkspace)" title="Makes the turtle do what the blocks say."><i class = "fa fa-save"> Save</i></button>
+        <button id="loadButton" class="btn btn-primary btn-sm" onclick="setTimeout(BlocklyStorage.loadBlocks, 0);"><i class="fa fa-files-o"> Load</i></button>
+        <div class="dropdown-container"  style= "display:inline-block">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class= " fa fa-file-code-o">
+            Modules
+          </i></button>
+          <ul class="dropdown-menu dropdown-menu-dark checkbox-menu" aria-labelledby="navbarDarkDropdownMenuLink" position = "absolute">
+            <li><input type="checkbox" name="importTurtle"><i class ="fa fa-bug"> Turtle</i></input></li>
+            <li><input type="checkbox" name="importMath"><i class ="fa fa-superscript"> Math</i></input></li>
+            <li><input type="checkbox" name="importRandom"><i class ="fas fa-dice"> Random</i></input></li>
+          </ul>
+        </div>
+        <button id="clearBlocks" class="btn btn-danger btn-sm" onclick="clearBlocks()" title="Clears all blocks from your workspace"><i class = "fa fa-bomb">Clear</i></button>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="form-group">
+        <textarea class="form-control" id="inout" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg">
+        <div id="blocklyDiv"></div>
+      </div>
+      <div class="col-xl">
+        <div id="visualization" height = "518px" width = "518px">
+          <canvas id="background" height = "516px" width = "516px"></canvas>
+          <canvas id="drawing" width="516px" height="516px"></canvas>
+          <div class = "turtles"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  
+
+  
+
+  <!-- Toolbox Definition -->
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
+    <toolboxlabel name="CY105 Toolbox" colour="darkslategrey"></toolboxlabel>
+    <category css-icon="customIcon fa fa-hdd-o" name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
+    <category css-icon="customIcon fa fa-cog" name="Logic" categorystyle="logic_category">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null" disabled="true"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category css-icon="customIcon fa fa-bug" name="Turtle"  colour="160">
+      <block type="create_turtle"></block>
+      <block type="draw_move"><value name="VALUE">
+        <block type="math_number"><title name="NUM">10</title></block>
+      </value></block>
+      <block type="draw_circle"><value name="RADIUS">
+        <block type="math_number"><title name="NUM">10</title></block>
+      </value></block>
+      <block type="draw_moveto"><value name="XPOS">
+        <block type="math_number"><title name="NUM">0</title></block></value><value name="YPOS"><block type="math_number"><title name="NUM">0</title></block></value></block>
+      <block type="draw_turn"><value name="VALUE"><block type="math_number"><title name="NUM">90</title></block></value></block>
+      <block type="draw_width"><value name="WIDTH"><block type="math_number"><title name="NUM">1</title></block></value></block>
+      <block type="draw_pen"></block>
+      <block type="turtle_visibility"></block>
+      <block type="draw_print"><value name="TEXT">
+        <block type="text"></block></value>
+      </block>
+      <block type="draw_font"></block>
+      <block type="draw_color"><value name="COLOR"><block type="colour_picker"></block></value></block>
+      <block type="begin_fill"><value name="FILLCOLOUR"><block type="colour_picker"></block></value></block>
+      <block type="end_fill"></block>
+      <block type="bg_color"><value name="BGCOLOR"><block type="colour_picker"></block></value></block>
+    </category>
+    <category css-icon="customIcon fa fa-refresh" name="Loops" categorystyle="loop_category">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category css-icon ="customIcon 	fa fa-superscript" name="Math" categorystyle="math_category">
+      <block type="math_number" gap="32">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constant"></block>
+      <block type="math_number_property">
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constrain">
+        <value name="VALUE">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="LOW">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="HIGH">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+      <block type="math_atan2">
+        <value name="X">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="Y">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-font" name="Text" categorystyle="text_category">
+      <block type="text"></block>
+      <block type="text_multiline"></block>
+      <block type="text_join"></block>
+      <block type="text_append">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_count">
+        <value name="SUB">
+          <shadow type="text"></shadow>
+        </value>
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_replace">
+        <value name="FROM">
+          <shadow type="text"></shadow>
+        </value>
+        <value name="TO">
+          <shadow type="text"></shadow>
+        </value>
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_reverse">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <label text="Input/Output:" web-class="ioLabel"></label>
+      <block type="text_print2">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_prompt_ext">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-list"name="Lists" categorystyle="list_category">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_sort"></block>
+      <block type="lists_reverse"></block>
+    </category>
+    <category css-icon="customIcon fa fa-tint" name="Color" categorystyle="colour_category">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="colour_blend">
+        <value name="COLOUR1">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="COLOUR2">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#3333ff</field>
+          </shadow>
+        </value>
+        <value name="RATIO">
+          <shadow type="math_number">
+            <field name="NUM">0.5</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-code" name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
+  </xml>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+</body>
+</html>
