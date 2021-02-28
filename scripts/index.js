@@ -20,7 +20,6 @@ function start() {
 }
 
 
-
 $( function() {
 
   $( ":checkbox[name ='importTurtle']" ).change(function () {

@@ -13,7 +13,8 @@
 
 	<!--Import Blockly-->
 	<script src="https://unpkg.com/blockly/blockly.min.js"></script>
-
+  <!--Modify where the print functin displays the text-->
+  <script src="scripts/inout.js"></script>
 	<script src="scripts/storage.js"></script>
 	<script src="scripts/index.js"></script>
 	<script src="scripts/toolbox_label.js"></script>
@@ -50,6 +51,10 @@
         <button id="clearBlocks" class="btn btn-danger btn-sm" onclick="clearBlocks()" title="Clears all blocks from your workspace"><i class = "fa fa-bomb">Clear</i></button>
       </div>
     </nav>
+    <div class = "row">
+      <div id = "inout">
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg">
         <div id="blocklyDiv"></div>
@@ -324,7 +329,7 @@
         </value>
       </block>
       <label text="Input/Output:" web-class="ioLabel"></label>
-      <block type="text_print">
+      <block type="text_print2">
         <value name="TEXT">
           <shadow type="text">
             <field name="TEXT">abc</field>
