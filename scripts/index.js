@@ -19,9 +19,7 @@ function start() {
   setTimeout(BlocklyStorage.restoreBlocks, 0);
 }
 
-$( window ).resize(function() {
-  console.log("window resized")
-});
+
 
 $( function() {
 

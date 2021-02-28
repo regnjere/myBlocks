@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CY105 Blocks</title>
 	<link rel="icon" type="image/png" href="icons/EECS Logo_small.png">
-	<!--<script src="https://unpkg.com/@popperjs/core@2"></script>-->
   <!--Import jQuery-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
@@ -21,8 +20,7 @@
 	<!--Import code for turtles-->
 	<script src="scripts/turtle_blocks.js"></script>
 	<script src="scripts/turtle.js"></script>
-	<!--Update where input and output display-->
-	<script src="scripts/inout.js"></script>
+
 	<link rel="stylesheet" href="styles/styles.css">
 	<link rel="stylesheet" href="styles/categoryStyles.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -52,11 +50,6 @@
         <button id="clearBlocks" class="btn btn-danger btn-sm" onclick="clearBlocks()" title="Clears all blocks from your workspace"><i class = "fa fa-bomb">Clear</i></button>
       </div>
     </nav>
-    <div class="row">
-      <div class="form-group">
-        <textarea class="form-control" id="inout" rows="3"></textarea>
-      </div>
-    </div>
     <div class="row">
       <div class="col-lg">
         <div id="blocklyDiv"></div>
@@ -331,7 +324,7 @@
         </value>
       </block>
       <label text="Input/Output:" web-class="ioLabel"></label>
-      <block type="text_print2">
+      <block type="text_print">
         <value name="TEXT">
           <shadow type="text">
             <field name="TEXT">abc</field>
@@ -440,6 +433,8 @@
   </xml>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+  <!--Update where input and output display-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+
 </body>
 </html>

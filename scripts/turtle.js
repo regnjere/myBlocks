@@ -8,16 +8,6 @@
 function highlightBlock(id) {
   Blockly.mainWorkspace.highlightBlock(id);
 }
-/*
-var highlight = function (id) {
-  if (id) {
-    var m = id.match(/^block_id_(\d+)$/);
-    if (m) {
-      id = m[1];
-    }
-  }
-  Blockly.mainWorkspace.highlightBlock(id);
-};*/
 
 var checkTimeout = function (opt_id) {
   if (opt_id) {
