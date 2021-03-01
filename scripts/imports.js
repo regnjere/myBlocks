@@ -1,8 +1,48 @@
+'use strict';
 
-Blockly.Blocks['import_turtle'] = {
+Blockly.Blocks['import_turt'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Import Turtle");
+        .appendField(new Blockly.FieldLabelSerializable("Import Turtle"), "IMPORTTURT");
+    this.setColour(290);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+
+Blockly.Blocks['import_math'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldLabelSerializable("Import Math"), "IMPORTMATH");
+    this.setColour(290);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+
+Blockly.Blocks['import_rand'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldLabelSerializable("Import Random"), "IMPORTRAND");
+    this.setColour(290);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+/*
+Blockly.Blocks['import_turt'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldLabelSerializable("Import Turtle"), "IMPORTTURT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(45);
@@ -15,6 +55,8 @@ Blockly.Blocks['import_turtle'] = {
     return container;
   }
 };
+
+
 Blockly.Blocks['my_custom_block'] = {
   init() {
     // Define your basic block stuff here
@@ -36,4 +78,4 @@ Blockly.Blocks['my_custom_block'] = {
   reshape(param){
     // Reshape your block...
   }
-}
+}*/

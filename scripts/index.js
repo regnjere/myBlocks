@@ -1,14 +1,14 @@
 'use strict';
 
-let workspace = null;
+var myWorkspace = null;
 
-function start() {
-  // Create main workspace.
-  workspace = Blockly.inject('blocklyDiv',
-    {
-      toolbox: document.getElementById('toolbox-categories'),
-    });
-  //Disable blocks that need to be imported to work
+
+//Disable blocks that need to be imported to work
+myWorkspace = Blockly.inject('blocklyDiv',
+  {
+    toolbox: document.getElementById('toolbox-categories'),
+  });
+$(function(){
   $("[name='Turtle'] > *").attr("disabled",true);
   $("[type='math_trig']").attr("disabled",true);
   $("[type='math_constant']").attr("disabled",true);
@@ -16,39 +16,38 @@ function start() {
   $("[type='math_random_int']").attr("disabled",true);
   $("[type='math_random_float']").attr("disabled",true);
   $("[type='colour_random']").attr("disabled",true);
-  setTimeout(BlocklyStorage.restoreBlocks, 0);
-}
-
-
-$( function() {
-
-  $( ":checkbox[name ='importTurtle']" ).change(function () {
-    if ($(this).prop("checked")) {
-      $("[name='Turtle'] > *").attr("disabled",false);
-    } else{
-      $("[name='Turtle'] > *").attr("disabled",true);
-    }
-  });
-  $( ":checkbox[name ='importMath']" ).change(function () {
-      if ($(this).prop("checked")) {
-        $("[type='math_trig']").attr("disabled",false);
-        $("[type='math_constant']").attr("disabled",false);
-        $("[type='math_atan2']").attr("disabled",false);
-      } else{
-        $("[type='math_trig']").attr("disabled",true);
-        $("[type='math_constant']").attr("disabled",true);
-        $("[type='math_atan2']").attr("disabled",true);
-      }
-  });
-  $( ":checkbox[name ='importRandom']" ).change(function () {
-      if ($(this).prop("checked")) {
-        $("[type='math_random_int']").attr("disabled",false);
-        $("[type='math_random_float']").attr("disabled",false);
-        $("[type='colour_random']").attr("disabled",false);
-      } else{
-        $("[type='math_random_int']").attr("disabled",true);
-        $("[type='math_random_float']").attr("disabled",true);
-        $("[type='colour_random']").attr("disabled",true);
-      }
-  });
+  setTimeout(BlocklyStorage.restoreBlocks, 0);  
 });
+
+
+function importModules() {
+  var dom = Blockly.Xml.workspaceToDom(myWorkspace);
+  var oSerializer = new XMLSerializer();
+  var xmlString = oSerializer.serializeToString(dom);
+  if (xmlString.search("import_turt") != -1) {
+    $("[name='Turtle'] > *").attr("disabled",false);
+  } else{
+    $("[name='Turtle'] > *").attr("disabled",true);
+  }
+
+  if (xmlString.search("import_math") != -1) {
+    $("[type='math_trig']").attr("disabled",false);
+    $("[type='math_constant']").attr("disabled",false);
+    $("[type='math_atan2']").attr("disabled",false);
+  } else{
+    $("[type='math_trig']").attr("disabled",true);
+    $("[type='math_constant']").attr("disabled",true);
+    $("[type='math_atan2']").attr("disabled",true);
+  }
+  if (xmlString.search("import_rand") != -1) {
+    $("[type='math_random_int']").attr("disabled",false);
+    $("[type='math_random_float']").attr("disabled",false);
+    $("[type='colour_random']").attr("disabled",false);
+  } else{
+    $("[type='math_random_int']").attr("disabled",true);
+    $("[type='math_random_float']").attr("disabled",true);
+    $("[type='colour_random']").attr("disabled",true);
+  }
+};
+myWorkspace.addChangeListener(importModules);
+//importModules();

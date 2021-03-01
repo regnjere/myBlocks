@@ -90,8 +90,7 @@ Blockly.JavaScript['text_prompt_ext2'] = function (block) {
   if (toNumber) {
     code = 'Number('+code+')';
   }
-  var code = '(function(){$("#inout").append("<span>");\n $("#inout").append('+msg+');\n $("#inout").append(" </span>");\n $("#inout").append('+code+'); return '+code+'})();'
+  var code = '(function(theCode,theMSG){$("#inout").append("<p>");\n $("#inout").append(theMSG);\n $("#inout").append(theCode.toString());\n $("#inout").append("</p>");\n return theCode})('+code+','+msg+');'
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
-
 
