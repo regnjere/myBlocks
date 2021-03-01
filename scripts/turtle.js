@@ -52,7 +52,8 @@ Turtle.execute = function () {
   Turtle.log = [];
   Turtle.ticks = 1000000;
   
-  var code = Blockly.JavaScript.workspaceToCode(workspace);
+  var code = Blockly.JavaScript.workspaceToCode(myWorkspace);
+ 
   try {
     eval(code);
   } catch (e) {
