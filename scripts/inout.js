@@ -1,15 +1,5 @@
 'use strict';
-function MutationToDom() {
-  var container = document.createElement('mutation');
-  var continueOnError = (this.getFieldValue('HasCONTINUE') == 'TRUE');
-  container.setAttribute('continueOnError', continueOnError);
-  return container;
-}
 
-function DomToMutation(xmlElement) {
-  var continueOnError = (xmlElement.getAttribute('continueOnError') == 'true');
-  this.updateShape_(continueOnError);
-}
 Blockly.Blocks['text_print2'] = {
   init: function () {
     this.appendValueInput("TEXT")
