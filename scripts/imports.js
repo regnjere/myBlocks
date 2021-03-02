@@ -74,19 +74,26 @@ myWorkspace.addChangeListener( function(event){
       $("[type='math_random_float']").attr("disabled",true);
       $("[type='colour_random']").attr("disabled",true);
     } else{
+      $("[name='Turtle'] > *").attr("disabled",true);
+      $("[type='math_trig']").attr("disabled",true);
+      $("[type='math_constant']").attr("disabled",true);
+      $("[type='math_atan2']").attr("disabled",true);
+      $("[type='math_random_int']").attr("disabled",true);
+      $("[type='math_random_float']").attr("disabled",true);
+      $("[type='colour_random']").attr("disabled",true);
       for (var i = 0; i < allBlocks.length; i++) {
-        if (allBlocks[i].type != "import_turt") {
-          $("[name='Turtle'] > *").attr("disabled",true);
+        if (allBlocks[i].type == "import_turt") {
+          $("[name='Turtle'] > *").attr("disabled",false);
         }
-        if (allBlocks[i].type != "import_math") {
-          $("[type='math_trig']").attr("disabled",true);
-          $("[type='math_constant']").attr("disabled",true);
-          $("[type='math_atan2']").attr("disabled",true);
+        if (allBlocks[i].type == "import_math") {
+          $("[type='math_trig']").attr("disabled",false);
+          $("[type='math_constant']").attr("disabled",false);
+          $("[type='math_atan2']").attr("disabled",false);
         }
-        if (allBlocks[i].type != "import_math") {
-          $("[type='math_random_int']").attr("disabled",true);
-          $("[type='math_random_float']").attr("disabled",true);
-          $("[type='colour_random']").attr("disabled",true);
+        if (allBlocks[i].type == "import_math") {
+          $("[type='math_random_int']").attr("disabled",false);
+          $("[type='math_random_float']").attr("disabled",false);
+          $("[type='colour_random']").attr("disabled",false);
         }
       }
     }

@@ -50,9 +50,10 @@ Blockly.Python.draw_move = function(){
   var value = Blockly.JavaScript.valueToCode(this, 'VALUE',
     Blockly.JavaScript.ORDER_NONE) || '0'; 
   return "turtle."+this.getFieldValue('DIR')+"("+value+")\n"; 
-
 };
 
+//To do: Update variables
+//Blockly.YourGeneratorName.variableDB_.setVariableMap(workspace.getVariableMap());
 Blockly.Blocks['draw_moveto'] = {
   init: function () {
     this.appendDummyInput()
@@ -175,6 +176,7 @@ Blockly.Python.turtle_visibility = function (){
   return "turtle." + this.getFieldValue('VISIBILITY') + "()\n";
 };
 
+//Update with font etc: https://docs.python.org/3/library/turtle.html#turtle.write
 Blockly.Blocks['draw_print'] = {
   init: function () {
     this.appendValueInput("TEXT")
@@ -271,6 +273,11 @@ Blockly.JavaScript.draw_color = function () {
   return 'Turtle.penColour(' + colour + ', \'block_id_' +
     this.id + '\');\n';
 };
+Blockly.Python.draw_color = function(){
+  var colour = Blockly.JavaScript.valueToCode(this, 'COLOR',
+    Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
+  return "turtle.pencolor("+colour+")\n";
+}
 
 //Change the canvas' background color
 Blockly.Blocks['bg_color'] = {
@@ -285,14 +292,19 @@ Blockly.Blocks['bg_color'] = {
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['bg_color'] = function (block) {
+Blockly.JavaScript.bg_color = function () {
   var bgcolor = Blockly.JavaScript.valueToCode(this, 'BGCOLOR',
     Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
   return 'Turtle.bgColor(' + bgcolor + ', \'block_id_' +
     this.id + '\');\n';
 };
+Blockly.Python.bg_color = function () {
+  var bgcolor = Blockly.JavaScript.valueToCode(this, 'BGCOLOR',
+    Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
+  return "turtle.Screen().bgcolor("+bgcolor+")\n";
+}
 // Code to draw a circle
-Blockly.Blocks['draw_circle'] = {
+Blockly.Blocks["draw_circle"] = {
   init: function () {
     this.appendValueInput("RADIUS")
       .setCheck("Number")
@@ -304,13 +316,18 @@ Blockly.Blocks['draw_circle'] = {
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['draw_circle'] = function (block) {
-  var value_radius = Blockly.JavaScript.valueToCode(block, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+Blockly.JavaScript.draw_circle = function () {
+  var value_radius = Blockly.JavaScript.valueToCode(this, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
   return 'Turtle.drawCircle(' + value_radius + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_circle = function() {
+  var value_radius = Blockly.JavaScript.valueToCode(this, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  return "turtle.circle("+value_radius+")\n";
+}
 
 //Code to fill the shape with color
-Blockly.Blocks['begin_fill'] = {
+//To do: Split fill color from being fill
+Blockly.Blocks["begin_fill"] = {
   init: function () {
     this.appendValueInput("FILLCOLOUR")
       .setCheck("Colour")
@@ -323,12 +340,16 @@ Blockly.Blocks['begin_fill'] = {
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['begin_fill'] = function (block) {
-  var value_fillcolor = Blockly.JavaScript.valueToCode(block, 'FILLCOLOUR', Blockly.JavaScript.ORDER_ATOMIC);
+Blockly.JavaScript.begin_fill = function () {
+  var value_fillcolor = Blockly.JavaScript.valueToCode(this, 'FILLCOLOUR', Blockly.JavaScript.ORDER_ATOMIC);
   return 'Turtle.beginFill(' + value_fillcolor + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.begin_fill = function () {
+  var value_fillcolor = Blockly.JavaScript.valueToCode(this, 'FILLCOLOUR', Blockly.JavaScript.ORDER_ATOMIC);
+  return "turtle.fillcolor("+value_fillcolor+")\nturtle.begin_fill()\n";
+}
 
-Blockly.Blocks['end_fill'] = {
+Blockly.Blocks["end_fill"] = {
   init: function () {
     this.appendDummyInput()
       .appendField("End fill");
@@ -339,6 +360,9 @@ Blockly.Blocks['end_fill'] = {
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['end_fill'] = function (block) {
+Blockly.JavaScript.end_fill = function (block) {
   return 'Turtle.endFill(\'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.end_fill = function () {
+  return "turtle.end_fill()\n";
+}

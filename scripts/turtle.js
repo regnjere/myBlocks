@@ -138,7 +138,7 @@ Turtle.step = function (command, values) {
       Turtle.x.push(Turtle.HEIGHT/2)
       Turtle.y.push(Turtle.HEIGHT/2)
       rotateTurtle(turtId,90)
-      $("#turtle"+turtId+" #shape").attr("fill","#00000000")
+      $("#turtle"+turtId+" #shape").attr("fill","#000000")
     
       $("#turtle"+turtId).css({
         "position": "absolute",
@@ -319,8 +319,6 @@ Turtle.step = function (command, values) {
         Turtle.ctxTurtle.lineWidth = Turtle.width1;
         Turtle.penDownValue = false;
       }
-      //reset the fill color to clear
-      $("#turtle"+turtId+" #shape").attr("fill","#00000000")
       break;
   }
 };
@@ -360,7 +358,7 @@ Turtle.createTurtle = function (name, shape, id) {
   Turtle.log.push(['CR', name, shape, id]);
 };
 
-Turtle.forwrad = function (distance, id) {
+Turtle.forward = function (distance, id) {
   Turtle.log.push(['FD', distance, id]);
 };
 
