@@ -56,7 +56,6 @@ body {
   border: 1px solid red;
   z-index: -1;
   position: absolute;
-
 }
 #background {
   z-index: -2;
@@ -69,35 +68,11 @@ body {
 .turtles{
   position: absolute;
 }
-
-.checkbox-menu label {
-    display: block;
-    padding: 3px 10px;
-    clear: both;
-    font-weight: normal;
-    line-height: 1.42857143;
-    color: rgb(214, 208, 208);
-    white-space: nowrap;
-    margin:0;
-    transition: background-color .4s ease;
+#turtleDisplay{
+  display: none;
 }
-.checkbox-menu input {
-    margin: 0px 5px;
-    top: 2px;
-    position: relative;
-}
-
-.checkbox-menu .active label {
-    background-color: #cbcbff;
-    font-weight:bold;
-}
-
-.checkbox-menu  label:hover,
-.checkbox-menu  label:focus {
-    background-color: #000000;
-}
-
-.checkbox-menu .active label:hover,
-.checkbox-menu .active label:focus {
-    background-color: #b8b8ff;
+#displayCode{
+  border: 1px solid blueviolet;
+  width: 518px;
+  height: 518px;
 }

@@ -9,16 +9,9 @@ Blockly.Blocks['import_turt'] = {
     this.setNextStatement(true, null);
     this.setTooltip("");
     this.setHelpUrl("");
-    var dom = Blockly.Xml.workspaceToDom(myWorkspace);
-    var oSerializer = new XMLSerializer();
-    var xmlString = oSerializer.serializeToString(dom);
-    if (xmlString.search("import_turt") != -1) {
-      $("[name='Turtle'] > *").attr("disabled",false);
-    } else{
-      $("[name='Turtle'] > *").attr("disabled",true);
-    }
-  }
+    $("[name='Turtle'] > *").attr("disabled",false);
 
+  }
 };
 Blockly.JavaScript.import_turt = function () {
   return ""
@@ -33,21 +26,10 @@ Blockly.Blocks['import_math'] = {
     this.setNextStatement(true, null);
     this.setTooltip("");
     this.setHelpUrl("");
-    var dom = Blockly.Xml.workspaceToDom(myWorkspace);
-    var oSerializer = new XMLSerializer();
-    var xmlString = oSerializer.serializeToString(dom);
-
-
-    if (xmlString.search("import_math") != -1) {
-      $("[type='math_trig']").attr("disabled",false);
-      $("[type='math_constant']").attr("disabled",false);
-      $("[type='math_atan2']").attr("disabled",false);
-    } else{
-      $("[type='math_trig']").attr("disabled",true);
-      $("[type='math_constant']").attr("disabled",true);
-      $("[type='math_atan2']").attr("disabled",true);
-    }
-  }
+    $("[type='math_trig']").attr("disabled",false);
+    $("[type='math_constant']").attr("disabled",false);
+    $("[type='math_atan2']").attr("disabled",false);
+  } 
 };
 Blockly.JavaScript.import_math = function () {
   return ""
@@ -63,21 +45,43 @@ Blockly.Blocks['import_rand'] = {
     this.setNextStatement(true, null);
     this.setTooltip("");
     this.setHelpUrl("");
-    var dom = Blockly.Xml.workspaceToDom(myWorkspace);
-    var oSerializer = new XMLSerializer();
-    var xmlString = oSerializer.serializeToString(dom);
-    if (xmlString.search("import_rand") != -1) {
-      $("[type='math_random_int']").attr("disabled",false);
-      $("[type='math_random_float']").attr("disabled",false);
-      $("[type='colour_random']").attr("disabled",false);
-    } else{
-      $("[type='math_random_int']").attr("disabled",true);
-      $("[type='math_random_float']").attr("disabled",true);
-      $("[type='colour_random']").attr("disabled",true);
-    }
+    $("[type='math_random_int']").attr("disabled",false);
+    $("[type='math_random_float']").attr("disabled",false);
+    $("[type='colour_random']").attr("disabled",false);
   }
 };
 Blockly.JavaScript.import_rand = function () {
   return ""
 };
 
+
+myWorkspace.addChangeListener( function(event){
+  if (event.type == Blockly.Events.BLOCK_DELETE){
+    var allBlocks = myWorkspace.getAllBlocks()
+    if (allBlocks.length == 0){
+      $("[name='Turtle'] > *").attr("disabled",true);
+      $("[type='math_trig']").attr("disabled",true);
+      $("[type='math_constant']").attr("disabled",true);
+      $("[type='math_atan2']").attr("disabled",true);
+      $("[type='math_random_int']").attr("disabled",true);
+      $("[type='math_random_float']").attr("disabled",true);
+      $("[type='colour_random']").attr("disabled",true);
+    } else{
+      for (var i = 0; i < allBlocks.length; i++) {
+        if (allBlocks[i].type != "import_turt") {
+          $("[name='Turtle'] > *").attr("disabled",true);
+        }
+        if (allBlocks[i].type != "import_math") {
+          $("[type='math_trig']").attr("disabled",true);
+          $("[type='math_constant']").attr("disabled",true);
+          $("[type='math_atan2']").attr("disabled",true);
+        }
+        if (allBlocks[i].type != "import_math") {
+          $("[type='math_random_int']").attr("disabled",true);
+          $("[type='math_random_float']").attr("disabled",true);
+          $("[type='colour_random']").attr("disabled",true);
+        }
+      }
+    }
+  }
+});

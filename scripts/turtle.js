@@ -6,7 +6,7 @@
  * @param {?string} id ID of block that triggered this action.
  */
 function highlightBlock(id) {
-  Blockly.mainWorkspace.highlightBlock(id);
+  myWorkspace.highlightBlock(id);
 }
 
 var checkTimeout = function (opt_id) {
@@ -324,6 +324,15 @@ Turtle.step = function (command, values) {
       break;
   }
 };
+Turtle.displayTurtle = function(){
+  if (!$("#codeDisplay").css("width")) {
+    $("#codeDisplay").css("width",$("#turtleDisplay").css("width")) ;
+  }
+  $("#codeDisplay").show();
+  $("#turtleDisplay").hide();
+  $("#displayCode").hide();
+  $("#visualization").show();
+}
 Turtle.runButtonClick = function () {
   var runButton = document.getElementById('runButton');
   var resetButton = document.getElementById('resetButton');
