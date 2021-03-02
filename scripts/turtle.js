@@ -360,11 +360,11 @@ Turtle.createTurtle = function (name, shape, id) {
   Turtle.log.push(['CR', name, shape, id]);
 };
 
-Turtle.moveForward = function (distance, id) {
+Turtle.forwrad = function (distance, id) {
   Turtle.log.push(['FD', distance, id]);
 };
 
-Turtle.moveBackward = function (distance, id) {
+Turtle.backward = function (distance, id) {
   Turtle.log.push(['FD', -distance, id]);
 };
 
@@ -372,19 +372,19 @@ Turtle.moveTo = function (xpos, ypos, id) {
   Turtle.log.push(['MT', xpos, ypos, id]);
 };
 
-Turtle.turnRight = function (angle, id) {
+Turtle.right = function (angle, id) {
   Turtle.log.push(['RT', angle, id]);
 };
 
-Turtle.turnLeft = function (angle, id) {
+Turtle.left = function (angle, id) {
   Turtle.log.push(['RT', -angle, id]);
 };
 
-Turtle.penUp = function (id) {
+Turtle.penup = function (id) {
   Turtle.log.push(['PU', id]);
 };
 
-Turtle.penDown = function (id) {
+Turtle.pendown = function (id) {
   Turtle.log.push(['PD', id]);
 };
 
@@ -400,11 +400,11 @@ Turtle.bgColor = function (colour, id) {
   Turtle.log.push(['BG', colour, id]);
 };
 
-Turtle.hideTurtle = function (id) {
+Turtle.hideturtle = function (id) {
   Turtle.log.push(['HT', id]);
 };
 
-Turtle.showTurtle = function (id) {
+Turtle.showturtle = function (id) {
   Turtle.log.push(['ST', id]);
 };
 

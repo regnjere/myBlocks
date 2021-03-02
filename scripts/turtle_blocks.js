@@ -31,7 +31,7 @@ Blockly.Blocks['draw_move'] = {
     this.appendValueInput("VALUE")
       .setCheck("Number")
       .appendField("move")
-      .appendField(new Blockly.FieldDropdown([["forward", "moveForward"], ["backward", "moveBackward"]]), "DIR")
+      .appendField(new Blockly.FieldDropdown([["forward", "forward"], ["backward", "backward"]]), "DIR")
       .appendField("by");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -46,6 +46,13 @@ Blockly.JavaScript.draw_move = function () {
   return 'Turtle.' + this.getFieldValue('DIR') +
     '(' + value + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_move = function(){
+  var value = Blockly.JavaScript.valueToCode(this, 'VALUE',
+    Blockly.JavaScript.ORDER_NONE) || '0'; 
+  return "turtle."+this.getFieldValue('DIR')+"("+value+")\n"; 
+
+};
+
 Blockly.Blocks['draw_moveto'] = {
   init: function () {
     this.appendDummyInput()
@@ -70,13 +77,18 @@ Blockly.JavaScript.draw_moveto = function () {
   var ypos = Blockly.JavaScript.valueToCode(this, 'YPOS', Blockly.JavaScript.ORDER_NONE) || '0';
   return 'Turtle.moveTo(' + xpos + ',' + ypos + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_moveto = function() {
+  var xpos = Blockly.JavaScript.valueToCode(this, 'XPOS', Blockly.JavaScript.ORDER_NONE) || '0';
+  var ypos = Blockly.JavaScript.valueToCode(this, 'YPOS', Blockly.JavaScript.ORDER_NONE) || '0';
+  return "turtle.goto("+xpos+","+ypos+")\n";
+};
 
 Blockly.Blocks['draw_turn'] = {
   init: function () {
     this.appendValueInput("VALUE")
       .setCheck("Number")
       .appendField("turn")
-      .appendField(new Blockly.FieldDropdown([["right", "turnRight"], ["left", "turnLeft"]]), "DIR")
+      .appendField(new Blockly.FieldDropdown([["right", "right"], ["left", "left"]]), "DIR")
       .appendField("by");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -91,12 +103,18 @@ Blockly.JavaScript.draw_turn = function () {
   return 'Turtle.' + this.getFieldValue('DIR') +
     '(' + value + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_turn = function() {
+  var value = Blockly.JavaScript.valueToCode(this, 'VALUE',
+  Blockly.JavaScript.ORDER_NONE) || '0';
+  var direction = this.getFieldValue('DIR');
+  return "turtle."+this.getFieldValue('DIR')+"("+value+")\n";
+};
 
 Blockly.Blocks['draw_width'] = {
   init: function () {
     this.appendValueInput("WIDTH")
       .setCheck("Number")
-      .appendField("set pen width to");
+      .appendField("set pen size to");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(160);
@@ -104,18 +122,22 @@ Blockly.Blocks['draw_width'] = {
     this.setHelpUrl("");
   }
 };
-
 Blockly.JavaScript.draw_width = function () {
   // Generate JavaScript for setting the width.
   var width = Blockly.JavaScript.valueToCode(this, 'WIDTH',
     Blockly.JavaScript.ORDER_NONE) || '1';
   return 'Turtle.penWidth(' + width + ', \'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_width = function (){
+  var width = Blockly.JavaScript.valueToCode(this, 'WIDTH',
+  Blockly.JavaScript.ORDER_NONE) || '1';
+  return "turtle.pensize("+width+")\n";
+};
 
 Blockly.Blocks['draw_pen'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldDropdown([["Pen Up", "penUp"], ["Pen Down", "penDown"]]), "PEN");
+      .appendField(new Blockly.FieldDropdown([["Pen Up", "penup"], ["Pen Down", "pendown"]]), "PEN");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(160);
@@ -128,11 +150,14 @@ Blockly.JavaScript.draw_pen = function () {
   return 'Turtle.' + this.getFieldValue('PEN') +
     '(\'block_id_' + this.id + '\');\n';
 };
+Blockly.Python.draw_pen = function (){
+  return 'turtle.' + this.getFieldValue('PEN') +"()\n";
+};
 
 Blockly.Blocks['turtle_visibility'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldDropdown([["hide", "hideTurtle"], ["show", "showTurtle"]]), "VISIBILITY")
+      .appendField(new Blockly.FieldDropdown([["hide", "hideturtle"], ["show", "showturtle"]]), "VISIBILITY")
       .appendField("turtle");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -145,6 +170,9 @@ Blockly.JavaScript.turtle_visibility = function () {
   // Generate JavaScript for changing turtle visibility.
   return 'Turtle.' + this.getFieldValue('VISIBILITY') +
     '(\'block_id_' + this.id + '\');\n';
+};
+Blockly.Python.turtle_visibility = function (){
+  return "turtle." + this.getFieldValue('VISIBILITY') + "()\n";
 };
 
 Blockly.Blocks['draw_print'] = {
@@ -166,6 +194,11 @@ Blockly.JavaScript.draw_print = function () {
   return 'Turtle.drawPrint(' + argument0 + ', \'block_id_' +
     this.id + '\');\n';
 };
+Blockly.Python.draw_print = function (){
+  var argument0 = String(Blockly.JavaScript.valueToCode(this, 'TEXT',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'');
+  return "turtle.write("+argument0+")\n";
+};
 
 //Create a new turtle object
 Blockly.Blocks['create_turtle'] = {
@@ -183,11 +216,14 @@ Blockly.Blocks['create_turtle'] = {
     this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['create_turtle'] = function (block) {
-  var turtName = block.getFieldValue('turtName');
-  var turtShape = block.getFieldValue('turtShape');
+Blockly.JavaScript.create_turtle = function () {
+  var turtName = this.getFieldValue('turtName');
+  var turtShape = this.getFieldValue('turtShape');
   return 'Turtle.createTurtle(\'' + turtName + '\',\'' + turtShape + '\', \'block_id_' +     this.id + '\');\n';
 };
+Blockly.Python.create_turtle = function (){
+  return this.getFieldValue('turtName')+" = turtle.Turtle()\nturtle.shape(\""+this.getFieldValue('turtShape')+"\")\n";
+}
 //change the font 
 Blockly.Blocks['draw_font'] = {
   init: function () {

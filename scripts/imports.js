@@ -16,6 +16,9 @@ Blockly.Blocks['import_turt'] = {
 Blockly.JavaScript.import_turt = function () {
   return ""
 };
+Blockly.Python.import_turt = function() {
+  return "import turtle\n"
+}
 
 Blockly.Blocks['import_math'] = {
   init: function() {
@@ -34,7 +37,9 @@ Blockly.Blocks['import_math'] = {
 Blockly.JavaScript.import_math = function () {
   return ""
 };
-
+Blockly.Python.import_math = function() {
+  return ""
+}
 
 Blockly.Blocks['import_rand'] = {
   init: function() {
@@ -53,7 +58,9 @@ Blockly.Blocks['import_rand'] = {
 Blockly.JavaScript.import_rand = function () {
   return ""
 };
-
+Blockly.Python.import_rand = function() {
+  return ""
+}
 
 myWorkspace.addChangeListener( function(event){
   if (event.type == Blockly.Events.BLOCK_DELETE){
