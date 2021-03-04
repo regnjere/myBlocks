@@ -1,1 +1,1 @@
-<svg transform="rotate(0)"  id="turtle*" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0  50 50"><circle id="shape" cx="25" cy="25" fill="#000000" r="24" /></svg>
+<svg transform=rotate(0)  id="turtle*" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0  50 50"><circle id="shape" cx="25" cy="25" fill="#000000" r="24" /></svg>

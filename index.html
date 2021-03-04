@@ -10,18 +10,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	 crossorigin="anonymous">
-
 	<!--Import Blockly-->
 	<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="scripts/storage.js"></script>
+  <script src="scripts/python_compressed.js"></script>
   <!--Update where input and output display-->
   <script src="scripts/inout.js"></script>
-	<script src="scripts/storage.js"></script>
-  <script src="scripts/python_compressed.js"></script>
-
 	<script src="scripts/toolbox_label.js"></script>
 	<!--Import code for turtles-->
 	<script src="scripts/turtle_blocks.js"></script>
-	<script src="scripts/turtle.js"></script>
+  <script src="scripts/turtle.js"></script>
 
 	<link rel="stylesheet" href="styles/styles.css">
 	<link rel="stylesheet" href="styles/categoryStyles.css">
@@ -35,17 +33,29 @@
     <nav class="navbar-dark bg-dark">
       <div class="container-fluid">
         <img src="icons/logo_built_on.svg" alt = "Blockly Logo" id = "BlocklyLogo">
+        <div class="btn-group">
         <button id="runButton" class="btn btn-primary btn-sm" onclick="Turtle.runButtonClick();" title="Makes the turtle do what the blocks say."><i class="fa fa-play"> Run</i></button>
-        <button id="resetButton" class="btn btn-primary btn-sm" onclick="Turtle.resetButtonClick();" style="display: none"><i class="fa fa-refresh"> Reset</i></button>
         <button id="saveButton" class="btn btn-primary btn-sm" onclick="BlocklyStorage.backupBlocks(Blockly.mainWorkspace)" title="Makes the turtle do what the blocks say."><i class = "fa fa-save"> Save</i></button>
         <button id="loadButton" class="btn btn-primary btn-sm" onclick="setTimeout(BlocklyStorage.loadBlocks, 0);"><i class="fa fa-files-o"> Load</i></button>
         <button id="clearBlocks" class="btn btn-danger btn-sm" onclick="clearBlocks()" title="Clears all blocks from your workspace"><i class = "fa fa-bomb">Clear</i></button>
-        <button id="codeDisplay" class="btn btn-primary btn-sm" onclick="displayMyCode();" title="Displays the code in Python"><i class="fa fa-file-code-o"> Display Code</i></button>
-        <button id="turtleDisplay" class="btn btn-primary btn-sm" onclick="Turtle.displayTurtle();"><i class="fa fa-bug"> Display Turtle</i></button>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Display
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <a class="dropdown-item" href="#" id="turtleDisplay" onclick="displayTurtle();"><img src="icons/turtle.svg"> Turtle</a>
+            <a class="dropdown-item" href="#" id="codeDisplay" onclick="displayCode();" title="Displays the code in Python"><i class="fa fa-file-code-o"> Code</i></a>
+            <a class="dropdown-item" href="#" id="textDisplay" onclick="displayText();" title="Displays the code in Python"><i class="far fa-file-alt"> Text</i></a>
+          </ul>
+        </div>
+      </div>
+      </div>
+        
+        
+
     </nav>
     <div class = "row">
-      <div id = "inout">
-      </div>
+
     </div>
     <div class="row">
       <div class="col-lg">
@@ -53,9 +63,10 @@
       </div>
       <div class="col-xl">
         <div>
-          <pre id="displayCode" height = "518px" width = "518px">
+          <pre id="displayCode">
           </pre>
         </div>
+        <pre id = "displayText"></pre>
         <div id="visualization" height = "518px" width = "518px">
           <canvas id="background" height = "516px" width = "516px"></canvas>
           <canvas id="drawing" width="516px" height="516px"></canvas>
@@ -89,27 +100,42 @@
       <block type="logic_null" disabled="true"></block>
       <block type="logic_ternary"></block>
     </category>
-    <category css-icon="customIcon fa fa-bug" name="Turtle"  colour="160">
+    <category css-icon="customIcon fa fa-bug" name="Turtle"  colour="35">
       <block type="create_turtle"></block>
-      <block type="draw_move"><value name="VALUE">
-        <block type="math_number"><title name="NUM">10</title></block>
-      </value></block>
-      <block type="draw_circle"><value name="RADIUS">
-        <block type="math_number"><title name="NUM">10</title></block>
-      </value></block>
-      <block type="draw_moveto"><value name="XPOS">
-        <block type="math_number"><title name="NUM">0</title></block></value><value name="YPOS"><block type="math_number"><title name="NUM">0</title></block></value></block>
-      <block type="draw_turn"><value name="VALUE"><block type="math_number"><title name="NUM">90</title></block></value></block>
-      <block type="draw_width"><value name="WIDTH"><block type="math_number"><title name="NUM">1</title></block></value></block>
-      <block type="draw_pen"></block>
-      <block type="turtle_visibility"></block>
-      <block type="draw_print"><value name="TEXT">
-        <block type="text"></block></value>
+      <block type="draw_move">
+        <value name = "DIST"><block type="math_number"><title name="NUM">100</title></block></value>
       </block>
-      <block type="draw_font"></block>
-      <block type="draw_color"><value name="COLOR"><block type="colour_picker"></block></value></block>
-      <block type="begin_fill"><value name="FILLCOLOUR"><block type="colour_picker"></block></value></block>
+      <block type="draw_turn"></block>
+      <block type="draw_moveto">
+        <value name="XPOS"><block type="math_number"><title name="NUM">0</title></block></value>
+        <value name="YPOS"><block type="math_number"><title name="NUM">0</title></block></value>
+      </block>
+      <block type="draw_circle">
+        <value name="RADIUS"><block type="math_number"><title name="NUM">25</title></block></value>
+      </block>
+      <block type="draw_stamp"></block>
+      <block type="turtle_speed">
+        <value name="SPEED"><block type="math_number"><title name="NUM">5</title></block></value>
+      </block>
+      <label text="Pen Control:" web-class="ioLabel"></label>
+      <block type="draw_pen"></block>
+      <block type="draw_width"><value name="WIDTH"><block type="math_number"><title name="NUM">1</title></block></value></block>
+      <block type="pen_color">
+        <value name="COLOR"><block type="colour_picker"></block></value>
+      </block>
+      <block type="fill_color">
+        <value name="COLOR"><block type="colour_picker"></block></value>
+      </block>
+      <block type="begin_fill"></block>
       <block type="end_fill"></block>
+      <label text="Writing Control:" web-class="ioLabel"></label>
+      <block type="draw_print"><value name="TEXT">
+        <shadow type="text"></shadow></value>
+      </block>
+      <label text="Turtle Appearance:" web-class="ioLabel"></label>
+      <block type="turtle_shape"></block>
+      <block type="turtle_visibility"></block>
+      <label text="Background Appearance::" web-class="ioLabel"></label>
       <block type="bg_color"><value name="BGCOLOR"><block type="colour_picker"></block></value></block>
     </category>
     <category css-icon="customIcon fa fa-refresh" name="Loops" categorystyle="loop_category">
@@ -435,7 +461,7 @@
         </value>
       </block>
     </category>
-    <category css-icon="customIcon fa fa-code" name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
+    <category css-icon="customIcon fa fa-code" name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>-->
   </xml>
   <script src="scripts/index.js"></script>
   <!--Import Blocks-->

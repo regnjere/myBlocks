@@ -3,29 +3,30 @@
 Blockly.Blocks['text_print2'] = {
   init: function () {
     this.appendValueInput("TEXT")
-      .setCheck(null)
+      .setCheck("text")
       .appendField("print");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(160);
-    this.setTooltip("");
-    this.setHelpUrl("");
+    this.setTooltip("TEXT_PRINT_TOOLTIP");
+    this.setHelpUrl("TEXT_PRINT_HELPURL");
   }
 };
 
 Blockly.JavaScript['text_print2'] = function (block) {
-  var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_FUNCTION_CALL);
-  
-  //return '$("#inout").append("<p>'+value_text +'</p>");';
-  return '$("#inout").append("<p>"); $("#inout").append('+value_text+'); $("#inout").append("</p>");';
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return '$("#displayText").append("<p>"); $("#displayText").append('+msg+'); $("#displayText").append("</p>");';
+};
+Blockly.Python.text_print2 = function (block) {
+  // Print statement.
+  var msg = Blockly.Python.valueToCode(block, 'TEXT',
+      Blockly.Python.ORDER_NONE) || '\'\'';
+  return 'print(' + msg + ')\n';
 };
 
 Blockly.Blocks['text_prompt_ext2'] = {
-  /**
-   * Block for prompt function (external message).
-   * @this {Blockly.Block}
-  */
   init: function () {
     var TYPES = [
       [Blockly.Msg['TEXT_PROMPT_TYPE_TEXT'], 'TEXT'],
@@ -82,5 +83,22 @@ Blockly.JavaScript['text_prompt_ext2'] = function (block) {
   }
   var code = '(function(theCode,theMSG){$("#inout").append("<p>");\n $("#inout").append(theMSG);\n $("#inout").append(theCode.toString());\n $("#inout").append("</p>");\n return theCode})('+code+','+msg+');'
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+Blockly.Python['text_prompt_ext2'] = function (block) {
+  // Prompt function.
+  if (block.getField('TEXT')) {
+    // Internal message.
+    var msg = Blockly.JavaScript.quote_(block.getFieldValue('TEXT'));
+  } else {
+    // External message.
+    var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  }
+  var code = "input("+msg+")"
+  var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
+  if (toNumber) { 
+    code = 'float('+code+')';
+  } 
+  return [code+"\n", Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
