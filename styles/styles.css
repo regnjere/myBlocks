@@ -61,15 +61,13 @@ body {
   z-index: -2;
   position: absolute;
 }
-#inout{
-  min-height: 50px;
-  border: 1px solid blue;
+#displayText{
+  border: 1px solid blueviolet;
+  width: 518px;
+  height: 518px;
 }
 .turtles{
   position: absolute;
-}
-#turtleDisplay{
-  display: none;
 }
 #displayCode{
   border: 1px solid blueviolet;
