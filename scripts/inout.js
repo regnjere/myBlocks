@@ -3,21 +3,21 @@
 Blockly.Blocks['text_print2'] = {
   init: function () {
     this.appendValueInput("TEXT")
-      .setCheck("text")
+      .setCheck("String")
       .appendField("print");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
+    this.setStyle('text_blocks');
     this.setColour(160);
     this.setTooltip("TEXT_PRINT_TOOLTIP");
     this.setHelpUrl("TEXT_PRINT_HELPURL");
   }
 };
-
 Blockly.JavaScript['text_print2'] = function (block) {
   var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return '$("#displayText").append("<p>"); $("#displayText").append('+msg+'); $("#displayText").append("</p>");';
+  return '$("#displayText").append("<p>"); $("#displayText").append('+msg+'); $("#displayText").append("</p>");' ;
 };
 Blockly.Python.text_print2 = function (block) {
   // Print statement.
@@ -81,7 +81,7 @@ Blockly.JavaScript['text_prompt_ext2'] = function (block) {
   if (toNumber) {
     code = 'Number('+code+')';
   }
-  var code = '(function(theCode,theMSG){$("#inout").append("<p>");\n $("#inout").append(theMSG);\n $("#inout").append(theCode.toString());\n $("#inout").append("</p>");\n return theCode})('+code+','+msg+');'
+  var code = '(function(theCode,theMSG){$("#displayText").append("<p>");\n $("#displayText").append(theMSG);\n $("#displayText").append(theCode.toString());\n $("#displayText").append("</p>");\n return theCode})('+code+','+msg+');'
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.Python['text_prompt_ext2'] = function (block) {

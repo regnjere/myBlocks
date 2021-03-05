@@ -44,7 +44,7 @@ Blockly.Python.import_math = function() {
 Blockly.Blocks['import_rand'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldLabelSerializable("Import Random"), "IMPORTRAND");
+      .appendField(new Blockly.FieldLabelSerializable("Import Random"), "IMPORTRAND");
     this.setColour(290);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -90,7 +90,7 @@ myWorkspace.addChangeListener( function(event){
           $("[type='math_constant']").attr("disabled",false);
           $("[type='math_atan2']").attr("disabled",false);
         }
-        if (allBlocks[i].type == "import_random") {
+        if (allBlocks[i].type == "import_rand") {
           $("[type='math_random_int']").attr("disabled",false);
           $("[type='math_random_float']").attr("disabled",false);
           $("[type='colour_random']").attr("disabled",false);
