@@ -82,7 +82,7 @@ Turtle.animate = function () {
     var turtId = Turtle.turtles[commands[0]];
     var speed = Turtle.speed[turtId];
     if (speed == 0){
-      speed = 100; 
+      speed = 500; 
     }else if (speed > 10 || speed < 0) {
       speed = 10;
     } else{
@@ -147,32 +147,35 @@ Turtle.step = function (command, values) {
   switch (command) {
     //Turtle Commands
     case 'CR':
-      //Add new turtle to the Turtle.turtles object  
-      Turtle.turtles[values[0]] = Turtle.Id
-      Turtle.shape.push("turtle");
-      $(".turtles").append(Turtle.turtleIcon)
-      $("#turtle").attr("id","turtle"+Turtle.Id)
-      Turtle.strokeStyle.push('#000000');
-      Turtle.fillStyle.push('#000000');
-      Turtle.x.push(Turtle.HEIGHT/2);
-      Turtle.y.push(Turtle.HEIGHT/2);
-      Turtle.lineWidth.push(1);
-      Turtle.penDownValue.push(true);
-      $("#turtle"+Turtle.Id+" #shape").attr("fill","#000000")
-      $("#turtle"+Turtle.Id).css({
-        "position": "absolute",
-        "left": (Turtle.HEIGHT/2-12)+"px",
-        "top": (Turtle.HEIGHT/2-12)+"px"
-      });
-      $("#turtle"+Turtle.Id + " #shape").css({  
-        "stroke": "#000000",
-        "stroke-width": "0.75px",
-        "stroke-linejoin": "round",
-      });
+      //Add new turtle to the Turtle.turtles object
+      if (values[0] in Turtle.turtles) {
+        window.alert("A turtle named "+values[0]+ " already exists.")
+      } else{
+        Turtle.turtles[values[0]] = Turtle.Id
+        Turtle.shape.push("turtle");
+        $(".turtles").append(Turtle.turtleIcon)
+        $("#turtle").attr("id","turtle"+Turtle.Id)
+        Turtle.strokeStyle.push('#000000');
+        Turtle.fillStyle.push('#000000');
+        Turtle.x.push(Turtle.HEIGHT/2);
+        Turtle.y.push(Turtle.HEIGHT/2);
+        Turtle.lineWidth.push(1);
+        Turtle.penDownValue.push(true);
+        $("#turtle"+Turtle.Id+" #shape").attr("fill","#000000")
+        $("#turtle"+Turtle.Id).css({
+          "position": "absolute",
+          "left": (Turtle.HEIGHT/2-12)+"px",
+          "top": (Turtle.HEIGHT/2-12)+"px"
+        });
+        $("#turtle"+Turtle.Id + " #shape").css({  
+          "stroke": "#000000",
+          "stroke-width": "0.75px",
+          "stroke-linejoin": "round",
+        });
 
-      Turtle.speed.push(5);
-      Turtle.Id += 1;
-
+        Turtle.speed.push(5);
+        Turtle.Id += 1;
+      }
       break;
     case 'FD':  // Forward
       var turtId = Turtle.turtles[values[0]];
@@ -193,21 +196,27 @@ Turtle.step = function (command, values) {
       var yPos = parseInt(tt.css("top").split("px")[0]);
       var currentAngle = parseInt(tt.attr("transform").split("(")[1].split(")")[0])
       xPos = xPos - dist*Math.cos(currentAngle*Math.PI/180+Math.PI/2);
-      Turtle.x[turtId] = Turtle.x[turtId] - dist*Math.cos(currentAngle*Math.PI/180+Math.PI/2);
-      // Double check the out of edge code
+      // Check to make sure x is in the bounds of the canvas.
       if (xPos > Turtle.HEIGHT-24){
         xPos = Turtle.HEIGHT-24;
-      } else if (xPos < 24){
-        xPos = 24
+        Turtle.x[turtId] = Turtle.HEIGHT-12;
+      } else if (xPos < 0){
+        xPos = 0;
+        Turtle.x[turtId] = 12;
+      } else{
+        Turtle.x[turtId] = Turtle.x[turtId] - dist*Math.cos(currentAngle*Math.PI/180+Math.PI/2);
       }
+      // Check to make sure x is in the bounds of the canvas.
       yPos = (yPos - dist*Math.sin(currentAngle*Math.PI/180+Math.PI/2));
-      Turtle.y[turtId] = (Turtle.y[turtId] - dist*Math.sin(currentAngle*Math.PI/180+Math.PI/2))
       if (yPos > Turtle.HEIGHT){
-        yPos = Turtle.HEIGHT;
+        yPos = Turtle.HEIGHT-24;
+        Turtle.y[turtId] =Turtle.HEIGHT-12;
       } else if (yPos < 0){
-        yPos = 150;
+        yPos = 0;
+        Turtle.y[turtId] = 12;
+      } else{
+        Turtle.y[turtId] = (Turtle.y[turtId] - dist*Math.sin(currentAngle*Math.PI/180+Math.PI/2))
       }
-      
       if (Turtle.penDownValue[turtId] && ! Turtle.beginFillValue) {
         Turtle.ctxTurtle.lineTo(Turtle.x[turtId],Turtle.y[turtId]);
         Turtle.ctxTurtle.stroke(); 
@@ -233,6 +242,19 @@ Turtle.step = function (command, values) {
       var turtId = Turtle.turtles[values[0]];
       var newX = values[1];
       var newY = -values[2];
+      // Check to make sure newX is in the bounds of the canvas.
+      if (newX > Turtle.HEIGHT/2-12){
+        newX = Turtle.HEIGHT/2-12;
+      } else if (newX < -(Turtle.HEIGHT/2-12)){
+        newX = -(Turtle.HEIGHT/2-12);
+      }
+      // Check to make sure newY is in the bounds of the canvas.
+      if (newY > Turtle.HEIGHT/2-12){
+        newY = Turtle.HEIGHT/2-12;
+      } else if (newY < (Turtle.HEIGHT/2-12)){
+        newY = -(Turtle.HEIGHT/2-12);
+      }
+      console.log(values[1],values[2])
       var tt = $("#turtle"+turtId);
       tt.css("left",(newX+Turtle.HEIGHT/2-12).toString()+"px");
       tt.css("top",(newY+Turtle.HEIGHT/2-12).toString()+"px");
