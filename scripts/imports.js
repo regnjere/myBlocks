@@ -63,7 +63,7 @@ Blockly.Python.import_rand = function() {
 }
 
 myWorkspace.addChangeListener( function(event){
-  if (event.type == Blockly.Events.BLOCK_DELETE){
+  if (event.type == Blockly.Events.BLOCK_DELETE||event.type=="toolbox_item_select"){
     var allBlocks = myWorkspace.getAllBlocks()
     if (allBlocks.length == 0){
       $("[name='Turtle'] > *").attr("disabled",true);
@@ -90,7 +90,7 @@ myWorkspace.addChangeListener( function(event){
           $("[type='math_constant']").attr("disabled",false);
           $("[type='math_atan2']").attr("disabled",false);
         }
-        if (allBlocks[i].type == "import_math") {
+        if (allBlocks[i].type == "import_random") {
           $("[type='math_random_int']").attr("disabled",false);
           $("[type='math_random_float']").attr("disabled",false);
           $("[type='colour_random']").attr("disabled",false);

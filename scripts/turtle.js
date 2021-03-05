@@ -59,32 +59,40 @@ Turtle.execute = function () {
   try {
     eval(code);
   } catch (e) {
-     // Null is thrown for infinite loop.
+    // Null is thrown for infinite loop.
     // Otherwise, abnormal termination is a user error.
     if (e !== Infinity) {
       alert(e);
     }
   }
-  // Turtle.log now contains a transcript of all the user's actions.
-  // Reset the graphic and animate the transcript.
-  // To Do update speed
-  Turtle.reset();
-  Turtle.pid = window.setTimeout(Turtle.animate, Turtle.speed[Turtle.Id]);
+  Turtle.pid = window.setTimeout(Turtle.animate, 500);
 };
 
 //Animate the turtle's movements
 Turtle.animate = function () {
   // All tasks should be complete now.  Clean up the PID list.
   Turtle.pid = 0;
+  
   var commands = Turtle.log.shift();
   if (!commands) {
-    //Blockly.workspace.highlightBlock(null);
+    myWorkspace.highlightBlock(null);
     return;
   }
-  var command = commands.shift();
+  var turtleAction = commands.shift();
+  if (turtleAction != "BG"){
+    var turtId = Turtle.turtles[commands[0]];
+    var speed = Turtle.speed[turtId];
+    if (speed == 0){
+      speed = 100; 
+    }else if (speed > 10 || speed < 0) {
+      speed = 10;
+    } else{
+      speed = 5;
+    }
+  }
   highlightBlock(commands.pop());
-  Turtle.step(command, commands);
-  Turtle.pid = window.setTimeout(Turtle.animate, 500);
+  Turtle.step(turtleAction, commands);
+  Turtle.pid = window.setTimeout(Turtle.animate, 1000/speed);
 };
 
 //Reset the turtles' values and clear the drawing area
@@ -169,7 +177,7 @@ Turtle.step = function (command, values) {
         "stroke-linejoin": "round",
       });
 
-      Turtle.speed.push(500);
+      Turtle.speed.push(5);
       Turtle.Id += 1;
 
       break;
@@ -303,7 +311,7 @@ Turtle.step = function (command, values) {
       break
     case 'TS': //Set Turtle Speed
       var turtId = Turtle.turtles[values[0]];
-      Turtle.speed.push(values[1])
+      Turtle.speed[turtId]= values[1];
       break
     
     //Pen Control
@@ -335,7 +343,7 @@ Turtle.step = function (command, values) {
     case 'BF': //Begin fill
       Turtle.beginFillValue = true;
       var turtId = Turtle.turtles[values[0]];
-      $("#turtle"+turtId+" #shape").attr("fill",values[1])
+      $("#turtle"+turtId+" #shape").attr("fill",Turtle.fillStyle[turtId])
       Turtle.ctxTurtle.fillStyle = values[1];
       Turtle.ctxTurtle.beginPath();
       if (Turtle.penDownValue){
@@ -471,8 +479,8 @@ Turtle.penColour = function (name, colour, id) {
 Turtle.fillColour = function (name, colour, id) {
   Turtle.log.push(['FC', name, colour, id]);
 };
-Turtle.beginFill = function(name, colour, id) {
-  Turtle.log.push(['BF', name, colour, id])
+Turtle.beginFill = function(name, id) {
+  Turtle.log.push(['BF', name, id])
 };
 Turtle.endFill = function(name, id) {
   Turtle.log.push(['EF', name, id])

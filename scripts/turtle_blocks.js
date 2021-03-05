@@ -39,7 +39,7 @@ Blockly.Blocks['create_turtle'] = {
 Blockly.JavaScript.create_turtle = function (block) {
   console.log(block)
   var value_turtlename = block.childBlocks_[0].inputList[0].fieldRow[0].selectedOption_[0];
-  var code = 'Turtle.createTurtle(\''+value_turtlename+'\',\'block_id_' + this.id + '\')\n';
+  var code = 'Turtle.createTurtle(\''+value_turtlename+'\',\'' + this.id + '\')\n';
   return code;
 };
 Blockly.Python.create_turtle = function (block){
@@ -69,7 +69,7 @@ Blockly.Blocks['create_turtle'] = {
 };
 Blockly.JavaScript.create_turtle = function (block) {
   var value_turtlename = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var code = 'Turtle.createTurtle(\'' + value_turtlename + '\',\'block_id_' + this.id + '\')\n';
+  var code = 'Turtle.createTurtle(\'' + value_turtlename + '\',\'' + this.id + '\')\n';
   return code;
 };
 Blockly.Python.create_turtle = function (block) {
@@ -104,13 +104,13 @@ Blockly.JavaScript['draw_move'] = function (block) {
   var value_dist = Blockly.JavaScript.valueToCode(block, 'DIST', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = 'Turtle.' + dropdown_dir +
-    '(\'' + value_turtlename + '\',' + value_dist + ', \'block_id_' + this.id + '\');\n';
+    '(\'' + value_turtlename + '\',' + value_dist + ', \'' + this.id + '\');\n';
   return code;
 };
 Blockly.Python['draw_move'] = function (block) {
   var value_turtlename = block.inputList[0].fieldRow[0].selectedOption_[0];
   var dropdown_dir = block.getFieldValue('DIR');
-  var value_dist = Blockly.JavaScript.valueToCode(block, 'DIST', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_dist = Blockly.Python.valueToCode(block, 'DIST', Blockly.Python.ORDER_ATOMIC);
   return value_turtlename + "." + dropdown_dir + "(" + value_dist + ")\n";
 };
 
@@ -139,7 +139,7 @@ Blockly.JavaScript['draw_turn'] = function (block) {
   var value_angle = block.getFieldValue('ANGLE');
   // TODO: Assemble JavaScript into code variable.
   var code = 'Turtle.' + dropdown_dir +
-    '(\'' + value_turtlename + '\',' + value_angle + ', \'block_id_' + this.id + '\');\n';
+    '(\'' + value_turtlename + '\',' + value_angle + ', \'' + this.id + '\');\n';
   return code;
 };
 Blockly.Python.draw_turn = function (block) {
@@ -172,33 +172,17 @@ Blockly.Blocks['draw_moveto'] = {
   }
 };
 Blockly.JavaScript['draw_moveto'] = function (block) {
-  try {
-    var name = block.childBlocks_[1].inputList[0].fieldRow[0].selectedOption_[0];
-  } catch{
-    try {
-      var name = block.childBlocks_[2].inputList[0].fieldRow[0].selectedOption_[0];
-    } catch{
-      var name = block.childBlocks_[0].inputList[0].fieldRow[0].selectedOption_[0];
-    }
-  }
+  name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var xpos = Blockly.JavaScript.valueToCode(block, 'XPOS', Blockly.JavaScript.ORDER_ATOMIC);
   var ypos = Blockly.JavaScript.valueToCode(block, 'YPOS', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = 'Turtle.moveTo(\'' + name + '\',' + xpos + ',' + ypos + ', \'block_id_' + this.id + '\');\n';
+  var code = 'Turtle.moveTo(\'' + name + '\',' + xpos + ',' + ypos + ', \'' + this.id + '\');\n';
   return code;
 };
 Blockly.Python.draw_moveto = function (block) {
-  try {
-    var name = block.childBlocks_[1].inputList[0].fieldRow[0].selectedOption_[0];
-  } catch{
-    try {
-      var name = block.childBlocks_[2].inputList[0].fieldRow[0].selectedOption_[0];
-    } catch{
-      var name = block.childBlocks_[0].inputList[0].fieldRow[0].selectedOption_[0];
-    }
-  }
-  var xpos = Blockly.JavaScript.valueToCode(block, 'XPOS', Blockly.JavaScript.ORDER_ATOMIC);
-  var ypos = Blockly.JavaScript.valueToCode(block, 'YPOS', Blockly.JavaScript.ORDER_ATOMIC);
+  name = block.inputList[0].fieldRow[0].selectedOption_[0];
+  var xpos = Blockly.Python.valueToCode(block, 'XPOS', Blockly.Python.ORDER_ATOMIC);
+  var ypos = Blockly.Python.valueToCode(block, 'YPOS', Blockly.Python.ORDER_ATOMIC);
   return name + ".goto(" + xpos + "," + ypos + ")\n";
 };
 
@@ -223,11 +207,11 @@ Blockly.Blocks['draw_circle'] = {
 Blockly.JavaScript['draw_circle'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var value_radius = Blockly.JavaScript.valueToCode(this, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return 'Turtle.drawCircle(\'' + name + '\',' + value_radius + ', \'block_id_' + this.id + '\');\n';
+  return 'Turtle.drawCircle(\'' + name + '\',' + value_radius + ', \'' + this.id + '\');\n';
 };
 Blockly.Python['draw_circle'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var value_radius = Blockly.JavaScript.valueToCode(this, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  var value_radius = Blockly.Python.valueToCode(this, 'RADIUS', Blockly.Python.ORDER_ATOMIC) || '0';
   return name + ".circle(" + value_radius + ")\n";
 }
 
@@ -246,11 +230,11 @@ Blockly.Blocks['draw_stamp'] = {
 };
 Blockly.JavaScript['draw_stamp'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  return 'Turtle.drawStamp(\'' + name + '\', \'block_id_' + this.id + '\');\n';
+  return 'Turtle.drawStamp(\'' + name + '\', \'' + this.id + '\');\n';
 };
 Blockly.Python['draw_stamp'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var value_radius = Blockly.JavaScript.valueToCode(this, 'RADIUS', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  var value_radius = Blockly.Python.valueToCode(this, 'RADIUS', Blockly.Python.ORDER_ATOMIC) || '0';
   return name + ".stamp()\n";
 };
 
@@ -275,11 +259,11 @@ Blockly.Blocks['turtle_speed'] = {
 Blockly.JavaScript['turtle_speed'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var speed = Blockly.JavaScript.valueToCode(this, 'SPEED', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return 'Turtle.turt_speed(\'' + name + '\',' + speed + ', \'block_id_' + this.id + '\');\n';
+  return 'Turtle.turt_speed(\'' + name + '\',' + speed + ', \'' + this.id + '\');\n';
 };
 Blockly.Python['turtle_speed'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var speed = Blockly.JavaScript.valueToCode(this, 'SPEED', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  var speed = Blockly.Python.valueToCode(this, 'SPEED', Blockly.Python.ORDER_ATOMIC) || '0';
   return name + ".speed(" + speed + ")\n";
 }
 
@@ -305,7 +289,7 @@ Blockly.JavaScript.draw_pen = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   // Generate JavaScript for pen up/down.
   return 'Turtle.' + this.getFieldValue('PEN') +
-    '(\'' + name + '\',\'block_id_' + this.id + '\');\n';
+    '(\'' + name + '\',\'' + this.id + '\');\n';
 };
 Blockly.Python.draw_pen = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
@@ -334,11 +318,11 @@ Blockly.Blocks['draw_width'] = {
 Blockly.JavaScript.draw_width = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var width = Blockly.JavaScript.valueToCode(block, 'WIDTH', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return 'Turtle.penWidth(\'' + name + '\','+ width +',\'block_id_' + block.id + '\');\n';
+  return 'Turtle.penWidth(\'' + name + '\','+ width +',\'' + block.id + '\');\n';
 };
 Blockly.Python.draw_width = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var width = Blockly.JavaScript.valueToCode(block, 'WIDTH', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  var width = Blockly.Python.valueToCode(block, 'WIDTH', Blockly.Python.ORDER_ATOMIC) || '0';
   return name + ".penwidth(" + width + ")\n";
 };
 
@@ -367,13 +351,13 @@ Blockly.JavaScript['pen_color'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var colour = Blockly.JavaScript.valueToCode(this, 'COLOR',
     Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
-  return 'Turtle.penColour(\''+name+'\',' + colour + ', \'block_id_' +
+  return 'Turtle.penColour(\''+name+'\',' + colour + ', \'' +
     this.id + '\');\n';
 };
 Blockly.Python['pen_color'] = function(block){
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var colour = Blockly.JavaScript.valueToCode(this, 'COLOR',
-    Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
+  var colour = Blockly.Python.valueToCode(this, 'COLOR',
+    Blockly.Python.ORDER_NONE) || '\'#000000\'';
   return name + ".pencolor("+colour+")\n";
 };
 
@@ -399,13 +383,13 @@ Blockly.JavaScript['fill_color'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var colour = Blockly.JavaScript.valueToCode(this, 'COLOR',
     Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
-  return 'Turtle.fillColour(\''+name+'\',' + colour + ', \'block_id_' +
+  return 'Turtle.fillColour(\''+name+'\',' + colour + ', \'' +
     this.id + '\');\n';
 };
 Blockly.Python['fill_color'] = function(block){
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var colour = Blockly.JavaScript.valueToCode(this, 'COLOR',
-    Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
+  var colour = Blockly.Python.valueToCode(this, 'COLOR',
+    Blockly.Python.ORDER_NONE) || '\'#000000\'';
   return name + ".fillcolor("+colour+")\n";
 };
 
@@ -425,7 +409,7 @@ Blockly.Blocks["begin_fill"] = {
 };
 Blockly.JavaScript.begin_fill = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  return 'Turtle.beginFill(\'' + name + '\', \'block_id_' + this.id + '\');\n';
+  return 'Turtle.beginFill(\'' + name + '\', \'' + this.id + '\');\n';
 };
 Blockly.Python.begin_fill = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
@@ -447,7 +431,7 @@ Blockly.Blocks["end_fill"] = {
 };
 Blockly.JavaScript.end_fill = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  return 'Turtle.endFill(\''+name+'\', \'block_id_' + this.id + '\');\n';
+  return 'Turtle.endFill(\''+name+'\', \'' + this.id + '\');\n';
 };
 Blockly.Python.end_fill = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
@@ -477,13 +461,13 @@ Blockly.JavaScript['draw_print'] = function (block) {
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var argument0 = String(Blockly.JavaScript.valueToCode(this, 'TEXT',
     Blockly.JavaScript.ORDER_NONE) || '\'\'');
-  return 'Turtle.drawPrint(\''+ name + '\',' + argument0 + ', \'block_id_' +
+  return 'Turtle.drawPrint(\''+ name + '\',' + argument0 + ', \'' +
     this.id + '\');\n';
 };
 Blockly.Python['draw_print'] = function (block){
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
-  var argument0 = String(Blockly.JavaScript.valueToCode(this, 'TEXT',
-    Blockly.JavaScript.ORDER_NONE) || '\'\'');
+  var argument0 = String(Blockly.Python.valueToCode(this, 'TEXT',
+    Blockly.Python.ORDER_NONE) || '\'\'');
   return name+".write("+argument0+")\n";
 };
 
@@ -510,7 +494,7 @@ Blockly.JavaScript['turtle_shape'] = function (block) {
   // Generate JavaScript for printing text.
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var shape = this.getFieldValue('SHAPE')
-  var code = 'Turtle.set_shape(\''+ name + '\',\'' + shape + '\', \'block_id_' +
+  var code = 'Turtle.set_shape(\''+ name + '\',\'' + shape + '\', \'' +
     this.id + '\');\n';
   return code;
 };
@@ -541,7 +525,7 @@ Blockly.JavaScript['turtle_visibility'] = function (block) {
   // Generate JavaScript for printing text.
   var name = block.inputList[0].fieldRow[0].selectedOption_[0];
   var visibility = this.getFieldValue('HIDE')
-  var code = 'Turtle.'+visibility+'(\''+ name + '\',\'block_id_' +
+  var code = 'Turtle.'+visibility+'(\''+ name + '\',\'' +
     this.id + '\');\n';
   return code;
 };
@@ -570,11 +554,11 @@ Blockly.Blocks['bg_color'] = {
 Blockly.JavaScript.bg_color = function () {
   var bgcolor = Blockly.JavaScript.valueToCode(this, 'BGCOLOR',
     Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
-  return 'Turtle.bgColor(' + bgcolor + ', \'block_id_' +
+  return 'Turtle.bgColor(' + bgcolor + ', \'' +
     this.id + '\');\n';
 };
 Blockly.Python.bg_color = function () {
-  var bgcolor = Blockly.JavaScript.valueToCode(this, 'BGCOLOR',
-    Blockly.JavaScript.ORDER_NONE) || '\'#000000\'';
+  var bgcolor = Blockly.Python.valueToCode(this, 'BGCOLOR',
+    Blockly.Python.ORDER_NONE) || '\'#000000\'';
   return "wn = turtle.Screen()\nwn.bgcolor("+bgcolor+")\n";
 };
