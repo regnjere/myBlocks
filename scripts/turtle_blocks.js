@@ -1,59 +1,6 @@
-/**
- * Blockly Apps: Turtle Graphics Blocks
- *
- * Copyright 2012 Google Inc.
- * http://blockly.googlecode.com/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Blocks for Blockly's Turtle Graphics application.
- * @author fraser@google.com (Neil Fraser)
- */
 'use strict';
 
 // Extensions to Blockly's language and JavaScript generator.
-
-/* Create a new "turtle" type variable
-Blockly.Blocks['create_turtle'] = {
-  init: function() {
-    this.appendDummyInput()
-      .appendField(new Blockly.FieldVariable(
-          "VAR_NAME", ['turtle'], 'turtle'), "FIELD_NAME");
-    this.setOutput(true, 'turtle');
-    this.setColour(35);
-    this.setTooltip("Create a turtle object");
-  }
-};
-Blockly.JavaScript.create_turtle = function (block) {
-  console.log(block)
-  var value_turtlename = block.childBlocks_[0].inputList[0].fieldRow[0].selectedOption_[0];
-  var code = 'Turtle.createTurtle(\''+value_turtlename+'\',\'' + this.id + '\')\n';
-  return code;
-};
-Blockly.Python.create_turtle = function (block){
-  var value_turtlename = block.childBlocks_[0].inputList[0].fieldRow[0].selectedOption_[0];
-  return value_turtlename+"=turtle.Turtle()\n"
-}
-Blockly.Variables.createVariableButtonHandler(button.getTargetWorkspace(), null, 'turtle')
-Blockly.JavaScript['create_turtle'] = function(block) {
-  // Variable getter.
-  var code = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'),
-      Blockly.VARIABLE_CATEGORY_NAME);
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};*/
-
 // Create a new turtle and save it to a variable
 Blockly.Blocks['create_turtle'] = {
   init: function () {
@@ -509,10 +456,9 @@ Blockly.Blocks['turtle_visibility'] = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldVariable('myTurtle'), 'name')
-      .appendField(".shape(");
-    this.appendDummyInput()
+          this.appendDummyInput()
       .appendField(new Blockly.FieldDropdown([["showturtle", "showturtle"], ["hideturtle", "hideturtle"]]), "HIDE")
-      .appendField(")")
+      .appendField("( )")
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setInputsInline(true);
