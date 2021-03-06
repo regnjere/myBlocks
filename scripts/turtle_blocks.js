@@ -456,7 +456,8 @@ Blockly.Blocks['turtle_visibility'] = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldVariable('myTurtle'), 'name')
-          this.appendDummyInput()
+      .appendField(".")
+    this.appendDummyInput()  
       .appendField(new Blockly.FieldDropdown([["showturtle", "showturtle"], ["hideturtle", "hideturtle"]]), "HIDE")
       .appendField("( )")
     this.setPreviousStatement(true, null);
