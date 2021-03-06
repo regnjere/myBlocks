@@ -44,7 +44,7 @@ body {
    font-weight: bold;
 }
 #blocklyDiv {
-  height: 516px;
+  height: 548px;
   width: 100%;
   display: inline-block;
 }
@@ -63,14 +63,20 @@ body {
 }
 #displayText{
   border: 1px solid blueviolet;
-  width: 518px;
-  height: 518px;
+  width: 548px;
+  height: 548px;
 }
 .turtles{
   position: absolute;
 }
 #displayCode{
   border: 1px solid blueviolet;
-  width: 518px;
-  height: 518px;
+  width: 548px;
+  height: 548px;
+}
+#blocklyCol{
+  padding-right: 0;
+}
+#displayCol{
+  padding-left: 0;
 }

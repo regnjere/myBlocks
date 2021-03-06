@@ -11,7 +11,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	 crossorigin="anonymous">
 	<!--Import Blockly-->
-	<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+	<script src="https://unpkg.com/blockly/blockly.min.js" ></script>
   <script src="scripts/storage.js"></script>
   <script src="scripts/python_compressed.js"></script>
   <!--Update where input and output display-->
@@ -35,48 +35,37 @@
         <img src="icons/logo_built_on.svg" alt = "Blockly Logo" id = "BlocklyLogo">
         <div class="btn-group">
         <button id="runButton" class="btn btn-primary btn-sm" onclick="Turtle.runButtonClick();" title="Makes the turtle do what the blocks say."><i class="fa fa-play"> Run</i></button>
-        <button id="saveButton" class="btn btn-primary btn-sm" onclick="BlocklyStorage.backupBlocks(Blockly.mainWorkspace)" title="Makes the turtle do what the blocks say."><i class = "fa fa-save"> Save</i></button>
-        <button id="loadButton" class="btn btn-primary btn-sm" onclick="setTimeout(BlocklyStorage.loadBlocks, 0);"><i class="fa fa-files-o"> Load</i></button>
+        <button id="saveButton" class="btn btn-primary btn-sm" onclick="BlocklyStorage.backupBlocks(Blockly.mainWorkspace)" title="Saves the current workspace to local storage."><i class = "fa fa-save"> Save</i></button>
+        <button id="loadButton" class="btn btn-primary btn-sm" onclick="setTimeout(BlocklyStorage.loadBlocks, 0);" title = "Loads the current workspace from local storage"><i class="fa fa-files-o"> Load</i></button>
         <button id="clearBlocks" class="btn btn-danger btn-sm" onclick="clearBlocks()" title="Clears all blocks from your workspace"><i class = "fa fa-bomb">Clear</i></button>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             Display
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <a class="dropdown-item" href="#" id="turtleDisplay" onclick="displayTurtle();"><img src="icons/turtle.svg"> Turtle</a>
+            <a class="dropdown-item" href="#" id="turtleDisplay" onclick="displayTurtle();"><img src="icons/turtle.svg" alt ="turtle icon"> Turtle</a>
             <a class="dropdown-item" href="#" id="codeDisplay" onclick="displayCode();" title="Displays the code in Python"><i class="fa fa-file-code-o"> Code</i></a>
             <a class="dropdown-item" href="#" id="textDisplay" onclick="displayText();" title="Displays the code in Python"><i class="far fa-file-alt"> Text</i></a>
           </div>
         </div>
       </div>
       </div>
-        
-        
-
     </nav>
-    <div class = "row">
-
-    </div>
     <div class="row">
-      <div class="col-lg">
+      <div class="col-xl" id = "blocklyCol">
         <div id="blocklyDiv"></div>
       </div>
-      <div class="col-xl">
-        <div>
-          <pre id="displayCode">
-          </pre>
-        </div>
+      <div class="col-xl" id = "displayCol">
+        <pre id="displayCode">
+        </pre>
         <pre id = "displayText"></pre>
-        <div id="visualization" height = "518px" width = "518px">
-          <canvas id="background" height = "516px" width = "516px"></canvas>
-          <canvas id="drawing" width="516px" height="516px"></canvas>
-          <div class = "turtles"></div>
+        <div id="visualization" height = "550px" width = "550">
+          <canvas id="background" height = "548px" width = "548px"></canvas>
+          <canvas id="drawing" width="548px" height="548px"></canvas>
+          <div class = "turtles"></div> 
         </div>
       </div>
     </div>
-
-
-
   </div>
   
 
