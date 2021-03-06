@@ -183,8 +183,7 @@ function rotateTurtle(turtId,angle){
 Turtle.step = function (command, values) {
   switch (command) {
     //Turtle Commands
-    case 'CR':
-      //Add new turtle to the Turtle.turtles object
+    case 'CR': //Add new turtle to the turtles div
       if (values[0] in Turtle.turtles) {
         window.alert("A turtle named "+values[0]+ " already exists.")
       } else{
@@ -395,7 +394,11 @@ Turtle.step = function (command, values) {
     case 'PC':  // Pen Color
       var turtId = Turtle.turtles[values[0]];
       Turtle.strokeStyle[turtId] = values[1];
-      $("#turtle"+turtId+" path").css("stroke",values[1])
+      if (Turtle.shape[turtId] == "turtle"){ 
+        $("#turtle"+turtId+" path").css("stroke",values[1])
+      }else{
+        $("#turtle"+turtId +" #shape").attr("style","stroke:" +values[1]+"; stroke-width: 0.75px; stroke-linejoin: round;")
+      }
       break;
     case 'FC': //Fill Color
       var turtId = Turtle.turtles[values[0]];
@@ -488,8 +491,9 @@ Turtle.step = function (command, values) {
       break;
     //Background Control
     case 'BG': //change set background colour
+      Turtle.ctxBackground = document.getElementById('background').getContext('2d');
       Turtle.ctxBackground.fillStyle = values[0];
-      Turtle.ctxBackground.fillRect(0, 0, Turtle.HEIGHT, Turtle.WIDTH);
+      Turtle.ctxBackground.fillRect(0, 0, Turtle.WIDTH, Turtle.HEIGHT);
       break;
   }
 };
