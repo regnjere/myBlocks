@@ -24,6 +24,21 @@ displayText = function(){
   $("#displayText").show();
   $("#visualization").hide();
 };
+//Make blocks full screen. 
+makeFullscreen = function(){
+  $('#myFullscreen').fullScreen(true);
+  $('#fullScreen').hide()
+  $('#windowView').show()
+}
+//Make block not full screen.
+makeWindowed = function(){
+  $('#myFullscreen').fullScreen(false);
+  $('#windowView').hide()
+  $('#fullScreen').show()
+}
+
+
+
 
 // Resize Boxes and turtle depending on screen size
 $(window).resize(function(){
