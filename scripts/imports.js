@@ -65,12 +65,13 @@ Blockly.Python.import_rand = function() {
   return ""
 }
 
-myWorkspace.addChangeListener( function(event){
+function importCheck(event){
   if (event.type == Blockly.Events.BLOCK_DELETE||event.type=="toolbox_item_select"){
     var allBlocks = myWorkspace.getAllBlocks()
     if (allBlocks.length == 0){
       $("[name='Turtle'] > *").attr("disabled",true);
       $("[type='math_trig']").attr("disabled",true);
+      $("[type='math_round']").attr("disabled",true);
       $("[type='math_constant']").attr("disabled",true);
       $("[type='math_atan2']").attr("disabled",true);
       $("[type='math_random_int']").attr("disabled",true);
@@ -79,6 +80,7 @@ myWorkspace.addChangeListener( function(event){
     } else{
       $("[name='Turtle'] > *").attr("disabled",true);
       $("[type='math_trig']").attr("disabled",true);
+      $("[type='math_round']").attr("disabled",true);
       $("[type='math_constant']").attr("disabled",true);
       $("[type='math_atan2']").attr("disabled",true);
       $("[type='math_random_int']").attr("disabled",true);
@@ -90,6 +92,7 @@ myWorkspace.addChangeListener( function(event){
         }
         if (allBlocks[i].type == "import_math") {
           $("[type='math_trig']").attr("disabled",false);
+          $("[type='math_round']").attr("disabled",false);
           $("[type='math_constant']").attr("disabled",false);
           $("[type='math_atan2']").attr("disabled",false);
         }
@@ -101,4 +104,4 @@ myWorkspace.addChangeListener( function(event){
       }
     }
   }
-});
+}

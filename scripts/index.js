@@ -1,8 +1,8 @@
 'use strict';
 
 var myWorkspace = null;
-myWorkspace = Blockly.inject('blocklyDiv',
-  {
+function start(){
+  myWorkspace = Blockly.inject('blocklyDiv',{
     toolbox: document.getElementById('toolbox-categories'),
     zoom:
       {controls: true,
@@ -11,7 +11,12 @@ myWorkspace = Blockly.inject('blocklyDiv',
       minScale: 0.3,
       scaleSpeed: 1.2,
       pinch: true},
-});
+  });
+  myWorkspace.addChangeListener(updateCode);
+  myWorkspace.addChangeListener(importCheck);
+  restoreBlocks();
+};
+
 $(function(){
 
   //Hide windowed view button
@@ -19,6 +24,7 @@ $(function(){
   //Disable blocks that need to be imported to work
   $("[name='Turtle'] > *").attr("disabled",true);
   $("[type='math_trig']").attr("disabled",true);
+  $("[type='math_round']").attr("disabled",true);
   $("[type='math_constant']").attr("disabled",true);
   $("[type='math_atan2']").attr("disabled",true);
   $("[type='math_random_int']").attr("disabled",true);

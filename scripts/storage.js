@@ -45,7 +45,7 @@ BlocklyStorage.backupOnUnload = function(opt_workspace) {
  * Restore code blocks from localStorage.
  * @param {Blockly.WorkspaceSvg=} opt_workspace Workspace.
  */
-BlocklyStorage.restoreBlocks = function(opt_workspace) {
+function restoreBlocks(opt_workspace) {
   Blockly.mainWorkspace.clear()
   var url = window.location.href.split('#')[0];
   if ('localStorage' in window && window.localStorage[url]) {
@@ -54,6 +54,7 @@ BlocklyStorage.restoreBlocks = function(opt_workspace) {
     Blockly.Xml.domToWorkspace(xml, workspace);
   }
 };
+
 var clearBlocks = function(){
   if (confirm("Are you sure you want to clear all of your current blocks?")) {
     Blockly.mainWorkspace.clear()
@@ -61,6 +62,7 @@ var clearBlocks = function(){
 
   }
 }
+
 BlocklyStorage.loadBlocks = function(opt_workspace) {
   if (confirm("Are you sure you want to load your previous save? This will clear all current blocks.")) {
     Blockly.mainWorkspace.clear()
