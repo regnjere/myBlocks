@@ -17,7 +17,8 @@ Blockly.JavaScript.import_turt = function () {
   return ""
 };
 Blockly.Python.import_turt = function() {
-  return "import turtle\n"
+  Blockly.Python.definitions_['import_turtle'] = 'import turtle'
+  return ""
 }
 
 Blockly.Blocks['import_math'] = {
@@ -38,6 +39,7 @@ Blockly.JavaScript.import_math = function () {
   return ""
 };
 Blockly.Python.import_math = function() {
+  Blockly.Python.definitions_['import_math'] = 'import math';
   return ""
 }
 
@@ -59,6 +61,7 @@ Blockly.JavaScript.import_rand = function () {
   return ""
 };
 Blockly.Python.import_rand = function() {
+  Blockly.Python.definitions_['import_random'] = 'import random'
   return ""
 }
 

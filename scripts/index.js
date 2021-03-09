@@ -2,18 +2,19 @@
 
 var myWorkspace = null;
 myWorkspace = Blockly.inject('blocklyDiv',
-{
-  toolbox: document.getElementById('toolbox-categories'),
-  zoom:
-    {controls: true,
-    startScale: 1.0,
-    maxScale: 3,
-    minScale: 0.3,
-    scaleSpeed: 1.2,
-    pinch: true},
+  {
+    toolbox: document.getElementById('toolbox-categories'),
+    zoom:
+      {controls: true,
+      startScale: 1.0,
+      maxScale: 3,
+      minScale: 0.3,
+      scaleSpeed: 1.2,
+      pinch: true},
 });
 $(function(){
-  //Hide windowwed view button
+
+  //Hide windowed view button
   $('#windowView').hide()
   //Disable blocks that need to be imported to work
   $("[name='Turtle'] > *").attr("disabled",true);
