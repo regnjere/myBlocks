@@ -15,8 +15,8 @@
 	<script src="https://unpkg.com/blockly/blockly.min.js" ></script>
   <script src="scripts/storage.js"></script>
   <script src="scripts/python_compressed.js"></script>
-  <!--Update where input and output display-->
-  <script src="scripts/inout.js"></script>
+  <!--JS file for modified back blocks-->
+  <script src="scripts/modifiedBlocks.js"></script>
 	<script src="scripts/toolbox_label.js"></script>
 	<!--Import code for turtles-->
 	<script src="scripts/turtle_blocks.js"></script>
@@ -78,88 +78,111 @@
   <!-- Toolbox Definition -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
     <toolboxlabel name="CY105 Toolbox" colour="darkslategrey"></toolboxlabel>
-    <category css-icon="customIcon fa fa-file-code-o" name="Import Modules" categorystyle="procedure_category">
-      <block type="import_turt"></block>
-      <block type="import_math"></block>
-      <block type="import_rand"></block>
-    </category>
-    <category css-icon="customIcon fa fa-hdd-o" name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
-    <category css-icon="customIcon fa fa-cog" name="Logic" categorystyle="logic_category">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_null" disabled="true"></block>
-      <block type="logic_ternary"></block>
-    </category>
-    <category css-icon="customIcon fa fa-bug" name="Turtle"  colour="35">
-      <block type="create_turtle"></block>
-      <block type="draw_move">
-        <value name = "DIST"><shadow type="math_number"><title name="NUM">100</title></shadow></value>
+      <category css-icon="customIcon fa fa-font" name="Text" categorystyle="text_category">
+        <label text="Basic text:" web-class="ioLabel"></label>
+        <block type="text"></block>
+        <block type="text_join"></block>
+        <block type="text_print2">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="text_prompt_ext2">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+        </block>
+        <label text="Text Methods:" web-class="ioLabel"></label>
+      <block type="text_append">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
       </block>
-      <block type="draw_turn"></block>
-      <block type="draw_moveto">
-        <value name="XPOS"><shadow type="math_number"><title name="NUM">0</title></shadow></value>
-        <value name="YPOS"><shadow type="math_number"><title name="NUM">0</title></shadow></value>
-      </block>
-      <block type="draw_circle">
-        <value name="RADIUS"><shadow type="math_number"><title name="NUM">25</title></shadow></value>
-      </block>
-      <block type="draw_stamp"></block>
-      <block type="turtle_speed">
-        <value name="SPEED"><shadow type="math_number"><title name="NUM">5</title></shadow></value>
-      </block>
-      <label text="Pen Control:" web-class="ioLabel"></label>
-      <block type="draw_pen"></block>
-      <block type="draw_width"><value name="WIDTH"><shadow type="math_number"><title name="NUM">1</title></shadow></value></block>
-      <block type="pen_color">
-        <value name="COLOR"><shadow type="colour_picker"></shadow></value>
-      </block>
-      <block type="fill_color">
-        <value name="COLOR"><shadow type="colour_picker"></shadow></value>
-      </block>
-      <block type="begin_fill"></block>
-      <block type="end_fill"></block>
-      <label text="Writing Control:" web-class="ioLabel"></label>
-      <block type="draw_print"><value name="TEXT">
-        <shadow type="text"></shadow></value>
-      </block>
-      <label text="Turtle Appearance:" web-class="ioLabel"></label>
-      <block type="turtle_shape"></block>
-      <block type="turtle_visibility"></block>
-      <label text="Background Appearance::" web-class="ioLabel"></label>
-      <block type="bg_color"><value name="BGCOLOR"><shadow type="colour_picker"></shadow></value></block>
-    </category>
-    <category css-icon="customIcon fa fa-refresh" name="Loops" categorystyle="loop_category">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
           </shadow>
         </value>
       </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <value name="FROM">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
           </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_count">
+        <value name="SUB">
+          <shadow type="text"></shadow>
+        </value>
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_replace">
+        <value name="FROM">
+          <shadow type="text"></shadow>
         </value>
         <value name="TO">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
+          <shadow type="text"></shadow>
         </value>
-        <value name="BY">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
+        <value name="TEXT">
+          <shadow type="text"></shadow>
         </value>
       </block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
+      <block type="text_reverse">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+
     </category>
+    <category css-icon="customIcon fa fa-hdd-o" name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
     <category css-icon ="customIcon 	fa fa-superscript" name="Math" categorystyle="math_category">
       <block type="math_number" gap="32">
         <field name="NUM">123</field>
@@ -261,114 +284,106 @@
         </value>
       </block>
     </category>
-    <category css-icon="customIcon fa fa-font" name="Text" categorystyle="text_category">
-      <block type="text"></block>
-      <block type="text_multiline"></block>
-      <block type="text_join"></block>
-      <block type="text_append">
-        <value name="TEXT">
-          <shadow type="text"></shadow>
-        </value>
+    <category css-icon="customIcon fa fa-file-code-o" name="Import Modules" categorystyle="procedure_category">
+      <block type="import_turt"></block>
+      <block type="import_math"></block>
+      <block type="import_rand"></block>
+    </category>
+    <category css-icon="customIcon fa fa-bug" name="Turtle"  colour="35">
+      <block type="create_turtle"></block>
+      <block type="draw_move">
+        <value name = "DIST"><shadow type="math_number"><title name="NUM">100</title></shadow></value>
       </block>
-      <block type="text_length">
-        <value name="VALUE">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
+      <block type="draw_turn"></block>
+      <block type="draw_moveto">
+        <value name="XPOS"><shadow type="math_number"><title name="NUM">0</title></shadow></value>
+        <value name="YPOS"><shadow type="math_number"><title name="NUM">0</title></shadow></value>
+      </block>
+      <block type="draw_circle">
+        <value name="RADIUS"><shadow type="math_number"><title name="NUM">25</title></shadow></value>
+      </block>
+      <block type="draw_stamp"></block>
+      <block type="turtle_speed">
+        <value name="SPEED"><shadow type="math_number"><title name="NUM">5</title></shadow></value>
+      </block>
+      <label text="Pen Control:" web-class="ioLabel"></label>
+      <block type="draw_pen"></block>
+      <block type="draw_width"><value name="WIDTH"><shadow type="math_number"><title name="NUM">1</title></shadow></value></block>
+      <block type="pen_color">
+        <value name="COLOR"><shadow type="colour_picker"></shadow></value>
+      </block>
+      <block type="fill_color">
+        <value name="COLOR"><shadow type="colour_picker"></shadow></value>
+      </block>
+      <block type="begin_fill"></block>
+      <block type="end_fill"></block>
+      <label text="Writing Control:" web-class="ioLabel"></label>
+      <block type="draw_print"><value name="TEXT">
+        <shadow type="text"></shadow></value>
+      </block>
+      <label text="Turtle Appearance:" web-class="ioLabel"></label>
+      <block type="turtle_shape"></block>
+      <block type="turtle_visibility"></block>
+      <label text="Background Appearance::" web-class="ioLabel"></label>
+      <block type="bg_color"><value name="BGCOLOR"><shadow type="colour_picker"></shadow></value></block>
+    </category>
+    <category css-icon="customIcon fa fa-tint" name="Color" categorystyle="colour_category">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
           </shadow>
         </value>
-      </block>
-      <block type="text_isEmpty">
-        <value name="VALUE">
-          <shadow type="text">
-            <field name="TEXT"></field>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
           </shadow>
         </value>
-      </block>
-      <block type="text_indexOf">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-        <value name="FIND">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_charAt">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-      </block>
-      <block type="text_getSubstring">
-        <value name="STRING">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-      </block>
-      <block type="text_changeCase">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_trim">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_count">
-        <value name="SUB">
-          <shadow type="text"></shadow>
-        </value>
-        <value name="TEXT">
-          <shadow type="text"></shadow>
-        </value>
-      </block>
-      <block type="text_replace">
-        <value name="FROM">
-          <shadow type="text"></shadow>
-        </value>
-        <value name="TO">
-          <shadow type="text"></shadow>
-        </value>
-        <value name="TEXT">
-          <shadow type="text"></shadow>
-        </value>
-      </block>
-      <block type="text_reverse">
-        <value name="TEXT">
-          <shadow type="text"></shadow>
-        </value>
-      </block>
-      <label text="Input/Output:" web-class="ioLabel"></label>
-      <block type="text_print2">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_prompt_ext2">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
           </shadow>
         </value>
       </block>
     </category>
+    <category css-icon="customIcon fa fa-cog" name="Conditionals" categorystyle="logic_category">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean2"></block>
+    </category>
+    <category css-icon="customIcon fa fa-refresh" name="Iteration" categorystyle="loop_category">
+      <block type="generate_range">
+        <value name="start">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="stop">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="step">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_while"></block>
+      <block type="controls_forEach2"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
     <category css-icon="customIcon fa fa-list"name="Lists" categorystyle="list_category">
+      <label text="Basic Lists:" web-class="ioLabel"></label>
       <block type="lists_create_with">
         <mutation items="0"></mutation>
       </block>
       <block type="lists_create_with"></block>
+      <label text="List Methods:" web-class="ioLabel"></label>
       <block type="lists_repeat">
         <value name="NUM">
           <shadow type="math_number">
@@ -415,44 +430,6 @@
       </block>
       <block type="lists_sort"></block>
       <block type="lists_reverse"></block>
-    </category>
-    <category css-icon="customIcon fa fa-tint" name="Color" categorystyle="colour_category">
-      <block type="colour_picker"></block>
-      <block type="colour_random"></block>
-      <block type="colour_rgb">
-        <value name="RED">
-          <shadow type="math_number">
-            <field name="NUM">100</field>
-          </shadow>
-        </value>
-        <value name="GREEN">
-          <shadow type="math_number">
-            <field name="NUM">50</field>
-          </shadow>
-        </value>
-        <value name="BLUE">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="colour_blend">
-        <value name="COLOUR1">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-          </shadow>
-        </value>
-        <value name="COLOUR2">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#3333ff</field>
-          </shadow>
-        </value>
-        <value name="RATIO">
-          <shadow type="math_number">
-            <field name="NUM">0.5</field>
-          </shadow>
-        </value>
-      </block>
     </category>
     <category css-icon="customIcon fa fa-code" name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>-->
   </xml>
